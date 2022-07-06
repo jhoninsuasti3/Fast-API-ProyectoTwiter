@@ -1,4 +1,5 @@
 #Python
+from inspect import BoundArguments
 from lib2to3.pytree import Base
 from optparse import Option
 from typing import Optional
@@ -74,8 +75,31 @@ def show_person(
         return {name : age}
 
 #Validaciones: Path Parameters
+
 @app.get("/person/detail/{person_id}")
 def show_person_two(
     person_id: int = Path(..., gt=0)
 ):
     return {person_id: "It exists!"}
+
+#Validaciones: Path Parameters
+
+@app.put("/person/{person_id}")
+def update_person(
+    person_id: int = Path(
+        ...,
+        title="Person ID",
+        description="This is the person ID",
+        gt= 0
+    ),
+    person : p.Person = Body(...),
+    location : p.Location = Body(...)
+):
+    # Forma de hacerlo actualizando 
+    #result = person.dict()
+    #result.update(location.dict())
+    #return result
+    return {
+        "person": person,
+        "location": location
+    }
