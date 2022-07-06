@@ -5,7 +5,7 @@ from optparse import Option
 from typing import Optional
 
 # Pydantic
-from pydantic import BaseModel
+from pydantic import Field
 
 #FastAPI
 from fastapi import FastAPI
