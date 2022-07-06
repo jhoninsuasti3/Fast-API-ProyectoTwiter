@@ -7,8 +7,8 @@ from typing import Optional
 from pydantic import BaseModel
 
 #FastAPI
-from fastapi import FastAPI, Query 
-from fastapi import Body
+from fastapi import FastAPI
+from fastapi import Body, Query, Path
 
 #Import models
 from models import m_person as p
@@ -54,10 +54,28 @@ def add_person(person: p.Person = Body(...)):
 
 @app.get("/person/detail")
 def show_person(
-    name: Optional[str] = Query( min_length=1, max_length=50),
-    age: Optional[str] = Query( max_length=3)
+    name: Optional[str] = Query(
+                                None, 
+                                title = "Person name",
+                                description = "This is the person name, It's between 1 and 50 characters",
+                                min_length=1,
+                                max_length=50
+                                ),
+    age: Optional[str] = Query( 
+                                ...,
+                                title= "Person age",
+                                description= "This is the person age is required",
+                                max_length=3
+                                )
 ):
     if len(age) > 3:
         return "Solo se permite maximo tres valores para el parametro edad"
     else:
         return {name : age}
+
+#Validaciones: Path Parameters
+@app.get("/person/detail/{person_id}")
+def show_person_two(
+    person_id: int = Path(..., gt=0)
+):
+    return {person_id: "It exists!"}
