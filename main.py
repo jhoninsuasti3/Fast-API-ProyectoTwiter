@@ -48,7 +48,8 @@ def show_person(
                                 title = "Person name",
                                 description = "This is the person name, It's between 1 and 50 characters",
                                 min_length=1,
-                                max_length=50
+                                max_length=50,
+                                example= "Thomas"
                                 ),
     age: Optional[str] = Query( 
                                 ...,
@@ -88,6 +89,6 @@ def update_person(
     #result.update(location.dict())
     #return result
     return {
-        "person": person
-        #"location": location
+        "person": person,
+        "location": location
     }
