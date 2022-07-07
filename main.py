@@ -18,18 +18,6 @@ app = FastAPI()
 
 
 #Models
-"""
-
-
-class Person(BaseModel):
-    first_name: str 
-    last_name: str
-    age: int
-    hair_color: Optional[str] = None
-    is_married: Optional[bool] = None
-
-
-"""
 
 
 #Fast operation decorator
@@ -100,6 +88,6 @@ def update_person(
     #result.update(location.dict())
     #return result
     return {
-        "person": person,
-        "location": location
+        "person": person
+        #"location": location
     }
